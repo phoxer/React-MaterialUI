@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import fetchData from './Api';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const FetchHookSample = () => {
+  const getUsers = () => {
+    fetchData.get('users/', data => {
+      console.log(data);
+    });
+  };
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  const getUser = () => {
+    fetchData.get('users/2', data => {
+      console.log(data);
+    });
+  };
+
+  const postUser = () => {
+    fetchData.post('users', { id: 700, name: 'roberto' }, data => {
+      console.log(data);
+    });
+  };
+
+  return (
+    <Fragment>
+      <div className="btn-group" role="group" aria-label="Basic example">
+        <button type="button" className="btn btn-secondary" onClick={getUsers}>
+          GET USERS
+        </button>
+        <button type="button" className="btn btn-secondary" onClick={getUser}>
+          GET USER
+        </button>
+      </div>
+      <hr />
+      <div className="btn-group" role="group" aria-label="Basic example">
+        <button type="button" className="btn btn-secondary" onClick={postUser}>
+          POST USERS
+        </button>
+      </div>
+    </Fragment>
+  );
+};
+
+ReactDOM.render(<FetchHookSample />, document.getElementById('root'));
