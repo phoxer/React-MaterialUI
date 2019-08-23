@@ -1,8 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import fetchData from './Api';
+import GlobalData from './GlobalData';
+import TopBar from './TopBar';
+import MenuBar from './MenuBar';
+//import fetchData from './Api';
 
+/*
 const FetchHookSample = () => {
   const getUsers = () => {
     fetchData.get('users/', data => {
@@ -41,5 +45,17 @@ const FetchHookSample = () => {
     </Fragment>
   );
 };
+*/
 
-ReactDOM.render(<FetchHookSample />, document.getElementById('root'));
+const DashBoard = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <GlobalData>
+      <TopBar setMenuOpen={setMenuOpen} />
+      <MenuBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+    </GlobalData>
+  );
+};
+
+ReactDOM.render(<DashBoard />, document.getElementById('root'));
