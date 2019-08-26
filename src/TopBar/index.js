@@ -20,34 +20,30 @@ const TopBar = ({ setMenuOpen }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar>
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={() => setMenuOpen(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Fetch Samples
-          </Typography>
-          <Switch
-            checked={themeChecked}
-            onChange={changeTheme}
-            classes={{
-              root: classes.switch_theme.root,
-              switchBase: classes.switch_theme.switchBase,
-              thumb: classes.switch_theme.thumb,
-              track: classes.switch_theme.track,
-              checked: classes.switch_theme.checked,
-            }}
-          />
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="relative" className={classes.bar}>
+      <Toolbar>
+        <IconButton
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+          onClick={() => setMenuOpen(true)}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" className={classes.title}>
+          Fetch Samples
+        </Typography>
+        <Switch
+          checked={themeChecked}
+          onChange={changeTheme}
+          classes={{
+            root: classes.switch_root,
+            switchBase: classes.switch_base,
+            track: classes.switch_track
+          }}
+        />
+      </Toolbar>
+    </AppBar>
   );
 };
 

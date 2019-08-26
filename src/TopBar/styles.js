@@ -1,30 +1,35 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { relative } from 'path';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
+  bar: {
+    flexGrow: 1
   },
   title: {
-    flexGrow: 1,
+    flexGrow: 1
   },
-  switch_theme: {
-    root: {
-      width: '158px',
-      height: '380px',
-    },
-    switchBase: {
-      padding: 2,
-      color: theme.palette.grey[500],
-      '&$checked': {
-        color: theme.palette.common.white,
-        '& + $track': {
-          opacity: 1,
-          backgroundColor: theme.palette.primary.main,
-          borderColor: theme.palette.primary.main,
-        },
-      },
-    },
+
+  switch_root: {
+    width: '158px',
+    height: '380px',
+    padding: '1px'
   },
+  switch_base: {
+    padding: 2,
+    color: theme.palette.grey[500],
+    '& $checked': {
+      color: theme.palette.common.white,
+      '& $track': {
+        opacity: 1,
+        backgroundColor: '#ffffff',
+        borderColor: theme.palette.primary.main
+      }
+    }
+  },
+  switch_track: {
+    backgroundColor: '#ffffff',
+    color: theme.palette.grey[500]
+  }
 }));
 
 export default useStyles;

@@ -4,6 +4,7 @@ import './index.css';
 import GlobalData from './GlobalData';
 import TopBar from './TopBar';
 import MenuBar from './MenuBar';
+import ModulesRouter from './Modules';
 //import fetchData from './Api';
 
 /*
@@ -54,6 +55,7 @@ const DashBoard = () => {
     <GlobalData>
       <TopBar setMenuOpen={setMenuOpen} />
       <MenuBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <ModulesRouter />
     </GlobalData>
   );
 };
