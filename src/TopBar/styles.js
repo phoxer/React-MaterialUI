@@ -6,8 +6,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   title: {
+    fontFamily: theme.fontHeader,
     flexGrow: 1
-  },
+  }
 }));
 
 export default useStyles;

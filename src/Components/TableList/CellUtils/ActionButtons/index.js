@@ -1,19 +1,27 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-//mport useStyle from './styles';
+import useStyle from './styles';
 
-const ActionButtons = () =>{
-    //const classes = useStyle();
+const ActionButton = ({ icon, onClick, data, color }) => {
+  const classes = useStyle({ color: color });
+  return (
+    <IconButton className={classes.action_button} onClick={() => onClick(data)}>
+      {React.createElement(icon)}
+    </IconButton>
+  );
+};
 
-    return (<ButtonGroup variant="contained">
-        <Button color="secondary">One</Button>
-        <Button color="primary">Two</Button>
-        <Button>Three</Button>
-      </ButtonGroup>)
-}
+const ActionButtons = ({ buttons }) => {
+  return (
+    <Box align="center" p={0} m={0}>
+      {buttons.map((btn, index) => {
+        return <ActionButton key={`abtn${index}`} {...btn} />;
+      })}
+    </Box>
+  );
+};
 
 export default ActionButtons;
-
-
-

@@ -1,13 +1,13 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = {
-  
   light: createMuiTheme({
     background: '#ffffff',
-    table:{
+    fontHeader: 'Oswald',
+    table: {
       header: '#e2e2e2',
       label: '#263238',
-      border: '1px solid #eeeeee',
+      border: '1px solid #eeeeee'
     },
     palette: {
       color: {
@@ -31,15 +31,16 @@ const theme = {
         danger: '#dc3545',
         light: '#f8f9fa',
         dark: '#263238'
-      },
-    },
+      }
+    }
   }),
   dark: createMuiTheme({
     background: '#000000',
-    table:{
+    fontHeader: 'Oswald',
+    table: {
       header: '#2d2d2d',
       label: '#ffffff',
-      border: '1px solid #2f2b2b',
+      border: '1px solid #2f2b2b'
     },
     palette: {
       color: {
@@ -63,18 +64,18 @@ const theme = {
         danger: '#dc3545',
         light: '#f8f9fa',
         dark: '#263238'
-      },
-    },
-  }),
+      }
+    }
+  })
 };
 
 export const themeActions = {
-  CHANGE_THEME: 'CHANGE_THEME',
+  CHANGE_THEME: 'CHANGE_THEME'
 };
 export const themeReducer = {
   [themeActions.CHANGE_THEME]: (state, theme) => {
     return { ...state, theme: theme };
-  },
+  }
 };
 
 export default theme;

@@ -1,29 +1,39 @@
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
-  module_wrap:{
+  module_wrap: {
     width: '100%',
     padding: '1rem',
     [theme.breakpoints.down('sm')]: {
-      padding: '.2rem',
+      padding: '.2rem'
     }
   },
-  header_title:{
-    color: '#263238',
-    fontSize: '24px',
+  header: {
+    height: '22px',
+    margin: '.5rem .8rem',
+    padding: '0'
+  },
+  header_title: {
+    color: theme.palette.color.dark,
+    fontSize: '22px',
     fontWeight: '500',
     lineHeight: '28px',
-    letterSpacing: '-0.06px',
+    fontFamily: theme.fontHeader,
+    flexGrow: 1,
     [theme.breakpoints.down('sm')]: {
-      fontSize: '15px',
+      fontSize: '15px'
     }
   },
-  header_icon:{
+  header_icon: {
     marginRight: '.5rem',
     fontSize: '2rem',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '1.3rem',
+      fontSize: '1.3rem'
     }
+  },
+  header_options: {
+    padding: '7px',
+    borderRadius: 0
   }
 }));
 
