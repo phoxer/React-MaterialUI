@@ -35,7 +35,6 @@ const buildDataToSend = data => {
 const makeServerCall = (node, config, callBack) => {
   fetch(`${apiBaseUrl}${node}`, config)
     .then(response => {
-      console.log('makeServerCall', response);
       return response.json();
     })
     .then(data => {

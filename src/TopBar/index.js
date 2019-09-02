@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { themeActions } from '../GlobalData/theme';
 import { StoreContext } from '../GlobalData';
-import useStyles from './styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import useStyles from './styles';
 
 const TopBar = ({ setMenuOpen }) => {
   const classes = useStyles();
@@ -36,11 +36,6 @@ const TopBar = ({ setMenuOpen }) => {
         <Switch
           checked={themeChecked}
           onChange={changeTheme}
-          classes={{
-            root: classes.switch_root,
-            switchBase: classes.switch_base,
-            track: classes.switch_track
-          }}
         />
       </Toolbar>
     </AppBar>

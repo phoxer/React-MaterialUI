@@ -1,6 +1,7 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, Fragment } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import theme, { themeReducer } from './theme';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 //CREAMOS EL STORE
 export const StoreContext = createContext();
@@ -29,11 +30,12 @@ const GlobalData = ({ children }) => {
   };
 
   console.log('NEW STATE->', state);
-  return (
+  return (<Fragment>
+    <CssBaseline />
     <StoreContext.Provider value={{ state, setGlobalState }}>
       <ThemeProvider theme={theme[state.theme]}>{children}</ThemeProvider>
     </StoreContext.Provider>
-  );
+    </Fragment>);
 };
 
 export default GlobalData;
