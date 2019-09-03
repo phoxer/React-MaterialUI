@@ -64,17 +64,18 @@ const FetchSamples = () => {
   const createTableData = user => {
     const { id, name, email } = user;
     return [
-      { text: `#${id}` },
+      { text: `#${id}`, cell_props: { textAlign: 'center', padding: 0 } },
       {
         component: UserData,
-        props: { name: name, email: email }
+        comp_props: { name: name, email: email },
+        cell_props: { backgroundColor: '#ccc' }
       },
       {
         text: ''
       },
       {
         component: ActionButtons,
-        props: {
+        comp_props: {
           buttons: [
             {
               icon: Group,
@@ -93,58 +94,14 @@ const FetchSamples = () => {
       },
       {
         component: StatusSwitch,
-        props: { state: true, onChange: onUserStateChange, data: { id: id } }
+        comp_props: {
+          state: true,
+          onChange: onUserStateChange,
+          data: { id: id }
+        }
       }
     ];
   };
-  /*
-  useEffect(() => {
-    setUsersData([
-      [
-        { text: '#1', props: { align: 'center' } },
-        {
-          component: UserData,
-          props: { name: 'Roberto Baglieri', email: 'phoxer@gmail.com' }
-        }
-      ],
-      [
-        { text: '#2' },
-        {
-          component: UserData,
-          props: {
-            name: 'Mario Baracux',
-            email: 'Mario.Baracux@gmail.com',
-            picture:
-              'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2016/11/Tobias-Erb_MPI-Marburg-590x408.jpg'
-          }
-        },
-        {
-          component: StatusSwitch,
-          props: { state: true, onChange: onUserStateChange, data: { id: 2 } }
-        },
-        {
-          component: ActionButtons,
-          props: {
-            buttons: [
-              {
-                icon: Group,
-                onClick: onActionGroupButton,
-                data: { id: 1 },
-                color: 'gray'
-              },
-              {
-                icon: AddCircle,
-                onClick: onActionAddCircleButton,
-                data: { id: 2 },
-                color: 'success'
-              }
-            ]
-          }
-        }
-      ]
-    ]);
-  }, []);
-  */
 
   const openOptions = () => {
     console.log('options');

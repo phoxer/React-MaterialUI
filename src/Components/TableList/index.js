@@ -22,21 +22,20 @@ const TableTH = props => {
   );
 };
 
-const TableRw = props => {
-  const { classes, data } = props;
+const TableTD = ({ text, component, comp_props, cell_props }) => {
+  const classes = useTableStyle(cell_props);
+  return (
+    <TableCell className={classes.table_td}>
+      {component ? React.createElement(component, comp_props) : text}
+    </TableCell>
+  );
+};
+
+const TableRows = ({ rowData }) => {
   return (
     <TableRow>
-      {data.map((td, index) => {
-        const { text, component, props: comp_props } = td;
-        return (
-          <TableCell
-            className={classes.table_td}
-            key={`tbtd${index}`}
-            size="small"
-          >
-            {component ? React.createElement(component, comp_props) : text}
-          </TableCell>
-        );
+      {rowData.map((td, index) => {
+        return <TableTD key={`tbtd${index}`} {...td} />;
       })}
     </TableRow>
   );
@@ -56,7 +55,7 @@ const TableList = ({ columns, rows }) => {
       </TableHead>
       <TableBody>
         {rows.map((row, index) => {
-          return <TableRw key={`tbrw${index}`} classes={classes} data={row} />;
+          return <TableRows key={`tbrw${index}`} rowData={row} />;
         })}
       </TableBody>
     </Table>
