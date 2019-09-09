@@ -5,9 +5,18 @@ const theme = {
     background: '#ffffff',
     fontHeader: 'Oswald',
     table: {
-      header: '#e2e2e2',
-      label: '#263238',
-      border: '1px solid #eeeeee'
+      background: '#ffffff',
+      border: '1px solid #eeeeee',
+      header: {
+        backgroundColor:'#e2e2e2',
+        label: '#263238',
+      },
+      hover_color: '#fbfbfb',
+    },
+    lists:{
+      titles: '#37474f',
+      border: '1px solid #eeeeee',
+      background: '#ffffff'
     },
     palette: {
       color: {
@@ -38,9 +47,18 @@ const theme = {
     background: '#000000',
     fontHeader: 'Oswald',
     table: {
-      header: '#2d2d2d',
-      label: '#ffffff',
-      border: '1px solid #2f2b2b'
+      background: '#000000', 
+      border: '1px solid #eeeeee',
+      header: {
+        backgroundColor:'#e2e2e2',
+        label: '#263238',
+      },
+      hover_color: '#fbfbfb',
+    },
+    lists:{
+      title: '#37474f',
+      border: '1px solid #eeeeee',
+      background: '#000000'
     },
     palette: {
       color: {

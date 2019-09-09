@@ -4,13 +4,18 @@ const useTableStyles = makeStyles((theme, props) => ({
   table: {
     borderCollapse: 'collapse',
     borderSpacing: '1px',
-    backgroundColor: '#ffffff'
+    backgroundColor: theme.table.background,
+    '& tbody':{
+        '& tr:hover':{
+        backgroundColor: theme.table.hover_color
+      }
+    }
   },
   table_th: {
     fontWeight: 700,
     border: theme.table.border,
-    color: theme.table.label,
-    backgroundColor: theme.table.header,
+    color: theme.table.header.label,
+    backgroundColor: theme.table.header.background,
     fontSize: '.8rem',
     width: props => (props.width ? props.width : 0)
   },

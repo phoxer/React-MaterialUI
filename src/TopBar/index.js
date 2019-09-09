@@ -21,7 +21,7 @@ const TopBar = ({ setMenuOpen }) => {
 
   return (
     <AppBar position="relative" className={classes.bar}>
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <IconButton
           className={classes.menuButton}
           color="inherit"
