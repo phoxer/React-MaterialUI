@@ -1,4 +1,4 @@
 import LoadingDialog from './Loading';
 import MsgDialog from './Msg';
-
-export { LoadingDialog, MsgDialog };
+import ContentDialog from './Content';
+export { LoadingDialog, MsgDialog, ContentDialog };

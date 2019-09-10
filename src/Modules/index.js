@@ -1,48 +1,105 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import FetchSamples from './FetchSamples';
-import { Settings,People } from '@material-ui/icons';
+import DialogSamples from './DialogSamples';
+import { Settings, People } from '@material-ui/icons';
+import TopBar from './TopBar';
+import { NavMenu, NavList } from '../Components/NavMenu';
+import { isUndefined } from 'lodash';
 
 const modules = [
   { title: 'Fetch Samples', component: FetchSamples, path: '/fetch-samples/' },
+  {
+    title: 'Dialogs Samples',
+    component: DialogSamples,
+    path: '/dialogs-samples/'
+  }
 ];
 
 export const NavMainMenu = [
-  {title:"ADMIN",list:[
-    {title:"USERS",icon:Settings,list:[
-      { title: 'menú Option 1', data: {path:'fuck-this-works1'} },
-      { title: 'menú Option 2', data: {path:'fuck-this-works2'} },
-    ]},
-    {title:"USER DATA",icon:People,data:{user:{id:1}}},
-    {title:"OTHER ITEM",list:[
-      { title: 'menú Option 3', data: {path:'fuck-this-works1'} },
-      { title: 'Menú Option 4',icon:Settings, data: {path:'fuck-this-works2'} },
-    ]},
-  ]},
-  {list:[
-    {title:"USER DATA",data:{user:{id:1}}},
-    {title:"OTHER ITEM",data:{some_data:"ok"}},
-  ]}
+  {
+    title: 'ADMIN',
+    list: [
+      {
+        title: 'USERS',
+        icon: Settings,
+        list: [
+          { title: 'menú Option 1', data: { path: 'fuck-this-works1' } },
+          { title: 'menú Option 2', data: { path: 'fuck-this-works2' } }
+        ]
+      },
+      { title: 'USER DATA', icon: People, data: { user: { id: 1 } } },
+      {
+        title: 'OTHER ITEM',
+        list: [
+          { title: 'menú Option 3', data: { path: 'fuck-this-works1' } },
+          {
+            title: 'Menú Option 4',
+            icon: Settings,
+            data: { path: 'fuck-this-works2' }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    list: [
+      { title: 'FETCH SAMPLE', data: { path: '/fetch-samples/' } },
+      { title: 'DIALOGS SAMPLE', data: { path: '/dialogs-samples/' } }
+    ]
+  }
 ];
 
 const ModulesRouter = () => {
   return (
-    <Router>
-      <Switch>
-        {modules.map((module, index) => {
-          const { path, component } = module;
-          return (
-            <Route
-              key={`mod${index}`}
-              exact
-              path={path}
-              component={component}
-            />
-          );
-        })}
-      </Switch>
-    </Router>
+    <Switch>
+      {modules.map((module, index) => {
+        const { path, component } = module;
+        return (
+          <Route key={`mod${index}`} exact path={path} component={component} />
+        );
+      })}
+    </Switch>
   );
 };
 
-export default ModulesRouter;
+const DashBoard = ({ history }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const onMainMenuClick = data => {
+    console.log(data);
+    const { path } = data;
+    if (!isUndefined(path)) {
+      history.push(path);
+      setMenuOpen(false);
+    }
+  };
+
+  return (
+    <Fragment>
+      <TopBar setMenuOpen={setMenuOpen} />
+      <NavMenu
+        data={NavMainMenu}
+        open={menuOpen}
+        onClose={setMenuOpen}
+        onItemsClick={onMainMenuClick}
+        styles={{ top: '60px' }}
+      >
+        <NavList
+          list={[{ title: 'LOG OUT', data: { logOut: true } }]}
+          onItemsClick={onMainMenuClick}
+        />
+      </NavMenu>
+      <ModulesRouter />
+    </Fragment>
+  );
+};
+
+const MainApplication = () => {
+  return (
+    <BrowserRouter>
+      <Route path="/" component={DashBoard} />
+    </BrowserRouter>
+  );
+};
+
+export default MainApplication;

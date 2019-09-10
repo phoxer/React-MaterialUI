@@ -4,7 +4,7 @@ import DialogHeader from '../Header';
 import DialogContent from '@material-ui/core/DialogContent';
 import useStyles from './styles';
 
-const MsgDialog = ({ open, setOpen, title, message }) => {
+const ContentDialog = ({ open, setOpen, title, children }) => {
   const classes = useStyles();
   const dialogClasses = {
     root: classes.root,
@@ -16,14 +16,12 @@ const MsgDialog = ({ open, setOpen, title, message }) => {
       aria-labelledby={title}
       open={open}
       classes={dialogClasses}
-      scroll="paper"
+      scroll="body"
     >
       <DialogHeader title={title} onClose={setOpen} classes={classes} />
-      <DialogContent className={classes.content}>
-        <div className={classes.text}>{message}</div>
-      </DialogContent>
+      <DialogContent className={classes.content}>{children}</DialogContent>
     </Dialog>
   );
 };
 
-export default MsgDialog;
+export default ContentDialog;

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { themeActions } from '../GlobalData/theme';
-import { StoreContext } from '../GlobalData';
+import { themeActions } from '../../GlobalData/theme';
+import { StoreContext } from '../../GlobalData';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -33,10 +33,7 @@ const TopBar = ({ setMenuOpen }) => {
         <Typography variant="h6" className={classes.title}>
           Fetch Samples
         </Typography>
-        <Switch
-          checked={themeChecked}
-          onChange={changeTheme}
-        />
+        <Switch checked={themeChecked} onChange={changeTheme} />
       </Toolbar>
     </AppBar>
   );
