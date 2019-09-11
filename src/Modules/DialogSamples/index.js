@@ -49,7 +49,7 @@ const DialogSamples = () => {
         <Button onClick={openContentDialog}>CONTENT DIALOG</Button>
       </Box>
       <LoadingDialog {...loadingDialog} />
-      <MsgDialog {...msgDialog} setOpen={showMsgDialog} />
+      <MsgDialog {...msgDialog} setOpen={showMsgDialog} scroll="body" />
       <ContentDialog {...contentDialog} setOpen={showContentDialog}>
         <TransferList />
       </ContentDialog>

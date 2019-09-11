@@ -3,7 +3,6 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -32,13 +31,13 @@ const NavSubMenu = ({title,icon,list,onItemsClick}) =>{
   return (<Fragment>
       <NavItem onClick={setOpen} open={open} title={title} icon={icon} />
       <Collapse in={open} unmountOnExit>
-        <NavList list={list} onItemsClick={onItemsClick} subList />
+        <NavList list={list} onItemsClick={onItemsClick} />
       </Collapse>
   </Fragment>)
 }
 
-export const NavList = ({title,onItemsClick,list,divider,subList}) =>{
-  const classes = useStyle({subList:subList});
+export const NavList = ({title,onItemsClick,list}) =>{
+  const classes = useStyle();
   return(<Fragment>
       {title && <Typography className={classes.list_title} variant="h6">{title}</Typography>}
       <List className={classes.list}>
@@ -47,7 +46,6 @@ export const NavList = ({title,onItemsClick,list,divider,subList}) =>{
           return isArray(list)? <NavSubMenu key={`nvsm${index}`} onItemsClick={onItemsClick} {...item} />:<NavItem key={`nvitm${index}`} onClick={onItemsClick} {...item} />
         })}
       </List>
-      {divider && <Divider />}
   </Fragment>)
 }
 

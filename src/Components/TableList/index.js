@@ -54,7 +54,7 @@ const TableList = ({ columns, rows }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row, index) => {
+        {rows && rows.map((row, index) => {
           return <TableRows key={`tbrw${index}`} rowData={row} />;
         })}
       </TableBody>

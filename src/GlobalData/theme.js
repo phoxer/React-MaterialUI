@@ -14,7 +14,8 @@ const theme = {
       hover_color: '#fbfbfb',
     },
     lists:{
-      titles: '#37474f',
+      title: '#687F8A',
+      items: '#48565D',
       border: '1px solid #eeeeee',
       background: '#ffffff'
     },
@@ -41,6 +42,14 @@ const theme = {
         light: '#f8f9fa',
         dark: '#263238'
       }
+    },
+    zIndex: {
+      mobileStepper: 1000,
+      appBar: 1500,
+      drawer: 1200,
+      modal: 2000,
+      snackbar: 2400,
+      tooltip: 2500,
     }
   }),
   dark: createMuiTheme({
@@ -56,7 +65,8 @@ const theme = {
       hover_color: '#fbfbfb',
     },
     lists:{
-      title: '#37474f',
+      title: '#687F8A',
+      items: '#48565D',
       border: '1px solid #eeeeee',
       background: '#000000'
     },
@@ -83,6 +93,14 @@ const theme = {
         light: '#f8f9fa',
         dark: '#263238'
       }
+    },
+    zIndex: {
+      mobileStepper: 1000,
+      appBar: 1500,
+      drawer: 1200,
+      modal: 2000,
+      snackbar: 2400,
+      tooltip: 2500,
     }
   })
 };
