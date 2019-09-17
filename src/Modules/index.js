@@ -5,6 +5,7 @@ import DialogSamples from './DialogSamples';
 import { Settings, People } from '@material-ui/icons';
 import TopBar from './TopBar';
 import { NavMenu, NavList } from '../Components/NavMenu';
+import AvtBox from '../Components/User/AvtBox';
 import { isUndefined } from 'lodash';
 
 const modules = [
@@ -84,9 +85,9 @@ const DashBoard = ({ history }) => {
         onItemsClick={onMainMenuClick}
         styles={{ top: '60px' }}
       >
-        <NavList
-          list={[{ title: 'LOG OUT', data: { logOut: true } }]}
-          onItemsClick={onMainMenuClick}
+        <AvtBox
+          name="Roberto Baglieri"
+          avatar="https://cdn.vox-cdn.com/thumbor/N1xYVnuB0CP4za8T2RVYpCTvjSc=/0x0:1024x576/1200x800/filters:focal(431x207:593x369)/cdn.vox-cdn.com/uploads/chorus_image/image/63947557/spongebob_rainbow_meme_video_16x9.0.jpg"
         />
       </NavMenu>
       <ModulesRouter />

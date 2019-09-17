@@ -11,7 +11,7 @@ const TableTH = props => {
   const classes = useTableStyle({ width: width });
   return (
     <TableCell
-      classes={{root:classes.table_th,smallSize:classes.table_size}}
+      classes={{ root: classes.table_th, smallSize: classes.table_size }}
       align={align}
       colSpan={colspan}
       variant="head"
@@ -24,7 +24,9 @@ const TableTH = props => {
 const TableTD = ({ text, component, comp_props, cell_props }) => {
   const classes = useTableStyle(cell_props);
   return (
-    <TableCell classes={{root:classes.table_th,smallSize:classes.table_size}}>
+    <TableCell
+      classes={{ root: classes.table_th, sizeSmall: classes.table_size }}
+    >
       {component ? React.createElement(component, comp_props) : text}
     </TableCell>
   );
@@ -53,9 +55,10 @@ const TableList = ({ columns, rows }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows && rows.map((row, index) => {
-          return <TableRows key={`tbrw${index}`} rowData={row} />;
-        })}
+        {rows &&
+          rows.map((row, index) => {
+            return <TableRows key={`tbrw${index}`} rowData={row} />;
+          })}
       </TableBody>
     </Table>
   );

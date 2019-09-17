@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     margin: '1rem'
   },
   content: {
-    padding: '.5rem',
+    padding: '0rem',
     overflow: 'hidden'
   }
 }));
