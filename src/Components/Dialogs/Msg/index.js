@@ -11,8 +11,8 @@ const MsgDialog = ({ open, setOpen, title, message, scroll }) => {
     <Dialog
       aria-labelledby={title}
       open={open}
-      classes={{paper: classes.paper}}
-      scroll={scroll? scroll:"paper"}
+      classes={{ paper: classes.paper }}
+      scroll={scroll ? scroll : 'paper'}
     >
       <DialogHeader title={title} onClose={setOpen} classes={classes} />
       <DialogContent className={classes.content}>
