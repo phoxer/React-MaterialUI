@@ -19,6 +19,9 @@ const useTableStyles = makeStyles((theme, props) => ({
     fontSize: '.8rem',
     width: props => (props.width ? props.width : 0)
   },
+  table_size:{
+    padding: '3px 15px 3px 15px'
+  },
   table_td: props => ({
     ...props,
     border: theme.table.border

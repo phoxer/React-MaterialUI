@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,7 +11,7 @@ const TableTH = props => {
   const classes = useTableStyle({ width: width });
   return (
     <TableCell
-      className={classes.table_th}
+      classes={{root:classes.table_th,smallSize:classes.table_size}}
       align={align}
       colSpan={colspan}
       variant="head"
@@ -25,7 +24,7 @@ const TableTH = props => {
 const TableTD = ({ text, component, comp_props, cell_props }) => {
   const classes = useTableStyle(cell_props);
   return (
-    <TableCell className={classes.table_td}>
+    <TableCell classes={{root:classes.table_th,smallSize:classes.table_size}}>
       {component ? React.createElement(component, comp_props) : text}
     </TableCell>
   );
