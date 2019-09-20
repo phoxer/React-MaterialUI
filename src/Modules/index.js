@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import FetchSamples from './FetchSamples';
 import DialogSamples from './DialogSamples';
+import FormSample from './FormSamples';
 import { Settings, People } from '@material-ui/icons';
 import TopBar from './TopBar';
 import { NavMenu, NavList } from '../Components/NavMenu';
@@ -14,6 +15,11 @@ const modules = [
     title: 'Dialogs Samples',
     component: DialogSamples,
     path: '/dialogs-samples/'
+  },
+  {
+    title: 'Form Samples',
+    component: FormSample,
+    path: '/form-sample/'
   }
 ];
 
@@ -46,7 +52,8 @@ export const NavMainMenu = [
   {
     list: [
       { title: 'FETCH SAMPLE', data: { path: '/fetch-samples/' } },
-      { title: 'DIALOGS SAMPLE', data: { path: '/dialogs-samples/' } }
+      { title: 'DIALOGS SAMPLE', data: { path: '/dialogs-samples/' } },
+      { title: 'FORM SAMPLE', data: { path: '/form-sample/' } }
     ]
   }
 ];
@@ -88,6 +95,8 @@ const DashBoard = ({ history }) => {
         <AvtBox
           name="Roberto Baglieri"
           avatar="https://cdn.vox-cdn.com/thumbor/N1xYVnuB0CP4za8T2RVYpCTvjSc=/0x0:1024x576/1200x800/filters:focal(431x207:593x369)/cdn.vox-cdn.com/uploads/chorus_image/image/63947557/spongebob_rainbow_meme_video_16x9.0.jpg"
+          email="roberto.baglieri@gmail.com"
+          text="Application Development Senior Analyst Level 10"
         />
       </NavMenu>
       <ModulesRouter />

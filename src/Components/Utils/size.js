@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { isUndefined } from 'lodash';
 
+// need check!
 export const useDomSize = domRef => {
   const getSize = () => {
     const { current } = domRef;

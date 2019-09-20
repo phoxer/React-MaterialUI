@@ -31,7 +31,7 @@ const TopBar = ({ setMenuOpen }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Fetch Samples
+          Material UI - Samples
         </Typography>
         <Switch checked={themeChecked} onChange={changeTheme} />
       </Toolbar>
