@@ -18,7 +18,7 @@ const ModuleHeader = ({ classes, title, icon, onModuleOptions }) => {
         {onModuleOptions && (
           <IconButton
             className={classes.header_options}
-            onClick={onModuleOptions}
+            onClick={() => onModuleOptions({ open: true })}
           >
             <DeveloperBoardIcon />
           </IconButton>

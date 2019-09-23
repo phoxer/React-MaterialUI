@@ -9,6 +9,7 @@ import {
   ContentDialog,
   ActionDialog
 } from '../../Components/Dialogs';
+import { DialogBottom } from '../../Components/Dialogs/Utils';
 
 const DialogSamples = () => {
   const [loadingDialog, showLoadingDialog] = useState({ open: false });
@@ -70,9 +71,14 @@ const DialogSamples = () => {
         <Button onClick={openActionDialog}>ACTION DIALOG</Button>
       </Box>
       <LoadingDialog {...loadingDialog} />
-      <MsgDialog {...msgDialog} setOpen={showMsgDialog} scroll="body" />
-      <ContentDialog {...contentDialog} setOpen={showContentDialog}>
+      <MsgDialog {...msgDialog} onClose={showMsgDialog} scroll="body" />
+      <ContentDialog {...contentDialog} onClose={showContentDialog}>
         <TransferList />
+        <DialogBottom>
+          <Button variant="contained" color="primary" fullWidth>
+            ACTION
+          </Button>
+        </DialogBottom>
       </ContentDialog>
       <ActionDialog
         {...actionDialog}

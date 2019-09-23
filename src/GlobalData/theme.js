@@ -8,12 +8,12 @@ const theme = {
       background: '#ffffff',
       border: '1px solid #eeeeee',
       header: {
-        backgroundColor:'#e2e2e2',
-        label: '#263238',
+        backgroundColor: '#e2e2e2',
+        label: '#263238'
       },
-      hover_color: '#fbfbfb',
+      hover_color: '#fbfbfb'
     },
-    lists:{
+    lists: {
       title: '#687F8A',
       items: '#48565D',
       border: '1px solid #eeeeee',
@@ -49,22 +49,22 @@ const theme = {
       drawer: 1200,
       modal: 2000,
       snackbar: 2400,
-      tooltip: 2500,
+      tooltip: 2500
     }
   }),
   dark: createMuiTheme({
     background: '#000000',
     fontHeader: 'Oswald',
     table: {
-      background: '#000000', 
+      background: '#000000',
       border: '1px solid #eeeeee',
       header: {
-        backgroundColor:'#e2e2e2',
-        label: '#263238',
+        backgroundColor: '#e2e2e2',
+        label: '#263238'
       },
-      hover_color: '#fbfbfb',
+      hover_color: '#fbfbfb'
     },
-    lists:{
+    lists: {
       title: '#687F8A',
       items: '#48565D',
       border: '1px solid #eeeeee',
@@ -100,7 +100,7 @@ const theme = {
       drawer: 1200,
       modal: 2000,
       snackbar: 2400,
-      tooltip: 2500,
+      tooltip: 2500
     }
   })
 };

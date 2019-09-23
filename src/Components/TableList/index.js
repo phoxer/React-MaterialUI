@@ -11,7 +11,7 @@ const TableTH = props => {
   const classes = useTableStyle({ width: width });
   return (
     <TableCell
-      classes={{ root: classes.table_th, smallSize: classes.table_size }}
+      classes={{ root: classes.table_th, sizeSmall: classes.table_size }}
       align={align}
       colSpan={colspan}
       variant="head"

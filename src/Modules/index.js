@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import FetchSamples from './FetchSamples';
 import DialogSamples from './DialogSamples';
 import FormSample from './FormSamples';
+import Payments from './Payments';
 import { Settings, People } from '@material-ui/icons';
 import TopBar from './TopBar';
 import { NavMenu, NavList } from '../Components/NavMenu';
@@ -20,6 +21,11 @@ const modules = [
     title: 'Form Samples',
     component: FormSample,
     path: '/form-sample/'
+  },
+  {
+    title: 'Payments',
+    component: Payments,
+    path: '/payments/'
   }
 ];
 
@@ -53,7 +59,8 @@ export const NavMainMenu = [
     list: [
       { title: 'FETCH SAMPLE', data: { path: '/fetch-samples/' } },
       { title: 'DIALOGS SAMPLE', data: { path: '/dialogs-samples/' } },
-      { title: 'FORM SAMPLE', data: { path: '/form-sample/' } }
+      { title: 'FORM SAMPLE', data: { path: '/form-sample/' } },
+      { title: 'PAYMENTS', data: { path: '/payments/' } }
     ]
   }
 ];
@@ -90,7 +97,7 @@ const DashBoard = ({ history }) => {
         open={menuOpen}
         onClose={setMenuOpen}
         onItemsClick={onMainMenuClick}
-        styles={{ top: '60px' }}
+        styles={{ top: '58px' }}
       >
         <AvtBox
           name="Roberto Baglieri"

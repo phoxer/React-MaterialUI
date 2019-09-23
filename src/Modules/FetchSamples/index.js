@@ -113,7 +113,7 @@ const FetchSamples = () => {
       icon={Group}
       onModuleOptions={openOptions}
     >
-      <Button color="primary" onClick={getUsers}>
+      <Button variant="contained" color="inherit" onClick={getUsers}>
         GET USERS
       </Button>
       <TableList columns={tableColumnsData} rows={usersData} />
