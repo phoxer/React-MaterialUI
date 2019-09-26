@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogHeader from '../Header';
+import DialogHeader from '../Utils/Header';
 import DialogContent from '@material-ui/core/DialogContent';
 import useStyles from './styles';
 

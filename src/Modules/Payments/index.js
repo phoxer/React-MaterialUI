@@ -6,6 +6,7 @@ import OptionsDrawer from '../../Components/OptionsDrawer';
 import TableList from '../../Components/TableList';
 import { ContentDialog } from '../../Components/Dialogs';
 import AddPayment from './AddPayent';
+import UserSearch from './UserSearch';
 import { ActionButtons } from '../../Components/TableList/CellUtils';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -25,6 +26,7 @@ const Payments = () => {
   const [optionsDrawer, showOptionsDrawer] = useState({ open: false });
   const [paymentsData, setPaymentsData] = useState([]);
   const [addPaymentDialog, showAddPaymentDialog] = useState({ open: false });
+  const [customerToPayment, setCustomerToPayment] = useState(null);
 
   const searchByUser = text => {
     console.log('SUser', text);
@@ -33,9 +35,15 @@ const Payments = () => {
     console.log('Stour', text);
   };
 
-  const openPaymentDialog = () => {
-    showOptionsDrawer({ open: false });
+  const openPaymentDialog = customer => {
     showAddPaymentDialog({ open: true, title: 'ADD Payment' });
+    setCustomerToPayment(customer);
+  };
+
+  const openUserSelection = () => {
+    setCustomerToPayment(null);
+    showOptionsDrawer({ open: false });
+    showAddPaymentDialog({ open: true, title: 'Select Customer' });
   };
 
   return (
@@ -50,7 +58,7 @@ const Payments = () => {
         onClose={showOptionsDrawer}
         styles={{ top: '58px' }}
       >
-        <Button variant="contained" color="primary" onClick={openPaymentDialog}>
+        <Button variant="contained" color="primary" onClick={openUserSelection}>
           ADD PAYMENT
         </Button>
         <Divider />
@@ -59,7 +67,11 @@ const Payments = () => {
         <SearchField placeholder="Serach Tour" onSearch={searchByTour} />
       </OptionsDrawer>
       <ContentDialog {...addPaymentDialog} onClose={showAddPaymentDialog}>
-        <AddPayment />
+        {customerToPayment ? (
+          <AddPayment customer={customerToPayment} />
+        ) : (
+          <UserSearch onSelect={openPaymentDialog} />
+        )}
       </ContentDialog>
     </ModuleWrap>
   );
