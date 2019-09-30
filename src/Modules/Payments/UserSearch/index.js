@@ -5,10 +5,11 @@ import {
   UserData,
   ActionButtons
 } from '../../../Components/TableList/CellUtils';
-import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import SelectSearch from '../SelectSearch';
 import { CheckBoxOutlineBlank, CheckBox } from '@material-ui/icons';
 
-const tableColumnsData = [{ title: 'Customers' }, { title: '' }];
+const tableColumnsData = [{ title: 'Customers', colspan: 2 }];
 
 const UserSearch = ({ onSelect, multpleSelection }) => {
   const [customers, setCustomers] = useState([]);
@@ -66,11 +67,23 @@ const UserSearch = ({ onSelect, multpleSelection }) => {
     ]);
   };
 
+  const onTourSelect = value => {
+    console.log(value);
+  };
+
   return (
     <Fragment>
-      <Box p={1}>
-        <SearchField placeholder="Customer Search" onSearch={searchCustomer} />
-      </Box>
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <SelectSearch label="Other Search" onSelect={onTourSelect} />
+        </Grid>
+        <Grid item xs={6}>
+          <SearchField
+            placeholder="Customer Search"
+            onSearch={searchCustomer}
+          />
+        </Grid>
+      </Grid>
       {customers.length > 0 && (
         <TableList
           columns={tableColumnsData}

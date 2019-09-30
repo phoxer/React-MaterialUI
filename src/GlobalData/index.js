@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, Fragment } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import theme, { themeReducer } from './theme';
+import { langReducer } from './langs';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 //CREAMOS EL STORE
@@ -9,12 +10,14 @@ export const StoreContext = createContext();
 //IMPORTAMOS ESTADOS Y LOS COMBINAMOS
 const initialState = {
   theme: 'light',
+  lang: 'en',
   user: { id: 0, token: '' }
 };
 
 //IMPORTAMOS REDUCERS Y LOS COMBINAMOS
 const combineReducers = {
-  ...themeReducer
+  ...themeReducer,
+  ...langReducer
 };
 
 //EJECUTAMOS LOS REDUCERS

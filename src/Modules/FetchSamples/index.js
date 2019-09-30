@@ -5,16 +5,18 @@ import TableList from '../../Components/TableList';
 import {
   UserData,
   StatusSwitch,
-  ActionButtons
+  ActionButtons,
+  IconText
 } from '../../Components/TableList/CellUtils';
 import { LoadingDialog, MsgDialog } from '../../Components/Dialogs';
 import Button from '@material-ui/core/Button';
-import { Group, AddCircle } from '@material-ui/icons';
+import { Group, AddCircle, Phone } from '@material-ui/icons';
 
 const tableColumnsData = [
   { title: '#ID', align: 'center', width: '10px' },
   { title: 'Usuario' },
-  { title: 'Fecha de Cumpleaños' },
+  { title: 'Phone Number' },
+  { title: 'NickName' },
   { title: 'Acciones', align: 'center' },
   { title: 'Activo', align: 'center', width: '30px' }
 ];
@@ -62,7 +64,7 @@ const FetchSamples = () => {
   };
 
   const createTableData = user => {
-    const { id, name, email } = user;
+    const { id, name, email, phone, username } = user;
     return [
       { text: `#${id}`, cell_props: { textAlign: 'center', padding: 0 } },
       {
@@ -71,7 +73,12 @@ const FetchSamples = () => {
         cell_props: { backgroundColor: '#ccc' }
       },
       {
-        text: ''
+        component: IconText,
+        comp_props: { icon: Phone, text: phone }
+      },
+      {
+        component: IconText,
+        comp_props: { icon: Phone, text: username, color: 'green' }
       },
       {
         component: ActionButtons,

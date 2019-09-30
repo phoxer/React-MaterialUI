@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { StoreContext } from '../../GlobalData';
 import ModuleWrap from '../../Components/ModuleWrap';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -10,8 +11,13 @@ import {
   ActionDialog
 } from '../../Components/Dialogs';
 import { DialogBottom } from '../../Components/Dialogs/Utils';
+import useLanguage from './lang';
 
 const DialogSamples = () => {
+  const { state } = useContext(StoreContext);
+  const { lang } = state;
+  const langText = useLanguage(lang);
+  console.log(langText, lang);
   const [loadingDialog, showLoadingDialog] = useState({ open: false });
   const [msgDialog, showMsgDialog] = useState({
     open: false,
@@ -63,12 +69,12 @@ const DialogSamples = () => {
   };
 
   return (
-    <ModuleWrap title="Dialog Samples">
+    <ModuleWrap title={langText.moduleTitle}>
       <Box align="center" p={1}>
-        <Button onClick={openLoadingDialog}>LOADING DIALOG</Button>
-        <Button onClick={openMsgDialog}>MESSAGE DIALOG</Button>
-        <Button onClick={openContentDialog}>CONTENT DIALOG</Button>
-        <Button onClick={openActionDialog}>ACTION DIALOG</Button>
+        <Button onClick={openLoadingDialog}>{langText.buttons[0]}</Button>
+        <Button onClick={openMsgDialog}>{langText.buttons[1]}</Button>
+        <Button onClick={openContentDialog}>{langText.buttons[2]}</Button>
+        <Button onClick={openActionDialog}>{langText.buttons[3]}</Button>
       </Box>
       <LoadingDialog {...loadingDialog} />
       <MsgDialog {...msgDialog} onClose={showMsgDialog} scroll="body" />

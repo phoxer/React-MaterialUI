@@ -8,13 +8,13 @@ const UserData = ({ name, email, picture, onClick, data }) => {
   let boxProps = { display: 'flex', alignItems: 'center' };
   if (onClick) {
     boxProps.onClick = () => onClick(data);
-    boxProps.className = 'MuiButtonBase-root';
+    boxProps.className = classes.user_box;
   }
   return (
     <Box {...boxProps}>
       {picture && <Avatar src={picture} className={classes.user_picture} />}
       <Box alignItems="center">
-        <Typography variant="h5" className={classes.user_name} gutterBottom>
+        <Typography variant="h5" className={classes.user_name}>
           {name}
         </Typography>
         <Typography variant="h6" className={classes.user_email}>
