@@ -25,7 +25,7 @@ const TableTD = ({ text, component, comp_props, cell_props }) => {
   const classes = useTableStyle(cell_props);
   return (
     <TableCell
-      classes={{ root: classes.table_th, sizeSmall: classes.table_size }}
+      classes={{ root: classes.table_td, sizeSmall: classes.table_size }}
     >
       {component ? React.createElement(component, comp_props) : text}
     </TableCell>

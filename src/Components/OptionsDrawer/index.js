@@ -1,8 +1,9 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import useStyles from './styles';
+import { DialogHeader } from '../Dialogs/Utils';
 
-const OptionsDrawer = ({ children, open, onClose, styles, anchor }) => {
+const OptionsDrawer = ({ children, title, open, onClose, styles, anchor }) => {
   const classes = useStyles(styles);
   return (
     <Drawer
@@ -11,6 +12,7 @@ const OptionsDrawer = ({ children, open, onClose, styles, anchor }) => {
       onClose={() => onClose({ open: false })}
       classes={{ paper: classes.draw_paper }}
     >
+      <DialogHeader title={title} onClose={onClose} />
       {children}
     </Drawer>
   );

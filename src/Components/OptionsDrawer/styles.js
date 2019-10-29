@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme, props) => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%'
     },
-    '& hr': {
+    '& hr + hr': {
       marginTop: '.5rem',
       marginBottom: '.5rem'
     }
