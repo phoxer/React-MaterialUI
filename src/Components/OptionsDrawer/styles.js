@@ -9,9 +9,12 @@ const useStyles = makeStyles((theme, props) => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%'
     },
-    '& hr + hr': {
-      marginTop: '.5rem',
-      marginBottom: '.5rem'
+    '& .content': {
+      paddingTop: '.5rem',
+      '& hr':{
+        marginTop: '.5rem',
+        marginBottom: '.5rem'
+      }
     }
   })
 }));

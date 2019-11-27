@@ -1,4 +1,5 @@
 import React from 'react';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,8 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import useTableStyle from './styles';
 
 const TableTH = props => {
-  const { title, align = 'left', colspan = 1, width } = props;
-  const classes = useTableStyle({ width: width });
+  const { title, align = 'left', colspan = 1, styles } = props;
+  const classes = useTableStyle(styles);
   return (
     <TableCell
       classes={{ root: classes.table_th, sizeSmall: classes.table_size }}
@@ -21,13 +22,13 @@ const TableTH = props => {
   );
 };
 
-const TableTD = ({ text, component, comp_props, cell_props }) => {
-  const classes = useTableStyle(cell_props);
+const TableTD = ({ text, component, props, styles }) => {
+  const classes = useTableStyle(styles);
   return (
     <TableCell
       classes={{ root: classes.table_td, sizeSmall: classes.table_size }}
     >
-      {component ? React.createElement(component, comp_props) : text}
+      {component ? React.createElement(component, props) : text}
     </TableCell>
   );
 };
@@ -42,10 +43,10 @@ const TableRows = ({ rowData }) => {
   );
 };
 
-const TableList = ({ columns, rows }) => {
-  const classes = useTableStyle();
+const TableList = ({ columns, rows, styles }) => {
+  const classes = useTableStyle(styles);
 
-  return (
+  return (<Paper className={classes.root}>
     <Table size="small" className={classes.table}>
       <TableHead>
         <TableRow>
@@ -61,7 +62,7 @@ const TableList = ({ columns, rows }) => {
           })}
       </TableBody>
     </Table>
-  );
+  </Paper>);
 };
 
 export default TableList;

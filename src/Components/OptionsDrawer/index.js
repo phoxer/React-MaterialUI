@@ -13,7 +13,9 @@ const OptionsDrawer = ({ children, title, open, onClose, styles, anchor }) => {
       classes={{ paper: classes.draw_paper }}
     >
       <DialogHeader title={title} onClose={onClose} />
-      {children}
+      <div className='content'>
+        {children}
+      </div>
     </Drawer>
   );
 };

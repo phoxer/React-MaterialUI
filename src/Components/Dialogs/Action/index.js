@@ -5,6 +5,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import useStyles from './styles';
 
+const ActionButton = ({actionResponse,label,action,data}) =>{
+  return (<Button onClick={() => actionResponse({ action, data })}>
+    {label}
+  </Button>)
+}
+
 const ActionDialog = ({
   open,
   actionResponse,
@@ -14,18 +20,15 @@ const ActionDialog = ({
   buttons
 }) => {
   const classes = useStyles();
-  const btnsLabels = isArray(buttons) ? buttons : ['ACCEPT', 'CANCEL'];
+  const actionsBtns = isArray(buttons) ? buttons : [{label:'ACCEPT',action:true},{label:'CANCEL',action:false}];
   return (
     <Dialog open={open} classes={{ paper: classes.paper }} scroll="paper">
       <h2 className={classes.title}>{title}</h2>
       <div className={classes.text}>{message}</div>
       <DialogActions>
-        <Button onClick={() => actionResponse({ response: true, data })}>
-          {btnsLabels[0]}
-        </Button>
-        <Button onClick={() => actionResponse({ response: false, data })}>
-          {btnsLabels[1]}
-        </Button>
+        {actionsBtns.map((button,index)=>{
+          return <ActionButton key={`abt${index}`} {...button} data={data} actionResponse={actionResponse} />
+        })}
       </DialogActions>
     </Dialog>
   );

@@ -6,24 +6,29 @@ import {
   UserData,
   StatusSwitch,
   ActionButtons,
-  IconText
+  IconText,
+  UrlButton
 } from '../../Components/TableList/CellUtils';
+import OptionsDrawer from '../../Components/OptionsDrawer';
 import { LoadingDialog, MsgDialog } from '../../Components/Dialogs';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { Group, AddCircle, Phone } from '@material-ui/icons';
 
 const tableColumnsData = [
-  { title: '#ID', align: 'center', width: '10px' },
+  { title: '#ID', align: 'center', styles:{width: '10px'} },
   { title: 'Usuario' },
   { title: 'Phone Number' },
   { title: 'NickName' },
-  { title: 'Acciones', align: 'center' },
-  { title: 'Activo', align: 'center', width: '30px' }
+  { title: 'link' },
+  { title: 'Acciones', align: 'center', styles:{background:'#00B0F0'}},
+  { title: 'Activo', align: 'center', styles:{ width: '30px'} }
 ];
 
 const FetchSamples = () => {
   const [openLoading, setOpenLoading] = useState(false);
   const [openMsg, setOpenMsg] = useState(false);
+  const [optionsDrawer,showOptionsDrawer]= useState({open:false})
   const [usersData, setUsersData] = useState([]);
 
   const getUsers = () => {
@@ -66,23 +71,27 @@ const FetchSamples = () => {
   const createTableData = user => {
     const { id, name, email, phone, username } = user;
     return [
-      { text: `#${id}`, cell_props: { textAlign: 'center', padding: 0 } },
+      { text: `#${id}`, styles: { textAlign: 'center', padding: 0 } },
       {
         component: UserData,
-        comp_props: { name: name, email: email },
-        cell_props: { backgroundColor: '#ccc' }
+        props: { name: name, email: email },
+        styles: { backgroundColor: '#ccc' }
       },
       {
         component: IconText,
-        comp_props: { icon: Phone, text: phone }
+        props: { icon: Phone, text: phone }
       },
       {
         component: IconText,
-        comp_props: { icon: Phone, text: username, color: 'green' }
+        props: { icon: Phone, text: username, color: 'green' }
+      },
+      {
+        component: UrlButton,
+        props: { icon: Phone, text: 'click to link', color: 'green', url:'http://www.google.com'}
       },
       {
         component: ActionButtons,
-        comp_props: {
+        props: {
           buttons: [
             {
               icon: Group,
@@ -110,20 +119,26 @@ const FetchSamples = () => {
     ];
   };
 
-  const openOptions = () => {
-    console.log('options');
-  };
-
   return (
     <ModuleWrap
       title="Administrador de usuarios"
       icon={Group}
-      onModuleOptions={openOptions}
+      onModuleOptions={showOptionsDrawer}
     >
-      <Button variant="contained" color="inherit" onClick={getUsers}>
-        GET USERS
-      </Button>
+      
       <TableList columns={tableColumnsData} rows={usersData} />
+      <OptionsDrawer
+        {...optionsDrawer}
+        title="Filters"
+        onClose={showOptionsDrawer}
+        styles={{ top: '58px' }}
+      >
+        <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
+        <Divider />
+        <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
+        <Divider />
+        <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
+      </OptionsDrawer>
       <LoadingDialog open={openLoading} title="Loading Users..." />
       <MsgDialog
         open={openMsg}

@@ -8,7 +8,7 @@ const theme = {
       background: '#ffffff',
       border: '1px solid #eeeeee',
       header: {
-        backgroundColor: '#e2e2e2',
+        background: '#8C9AA7',
         label: '#263238'
       },
       hover_color: '#fbfbfb'
