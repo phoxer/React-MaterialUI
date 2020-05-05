@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment,useState, useEffect } from 'react';
 import fetchData from '../../Api';
 import ModuleWrap from '../../Components/ModuleWrap';
 import TableList from '../../Components/TableList';
@@ -7,23 +7,29 @@ import {
   StatusSwitch,
   ActionButtons,
   IconText,
-  UrlButton
+  UrlButton,
+  DateData,
+  LongText
 } from '../../Components/TableList/CellUtils';
 import OptionsDrawer from '../../Components/OptionsDrawer';
 import { LoadingDialog, MsgDialog } from '../../Components/Dialogs';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { Group, AddCircle, Phone } from '@material-ui/icons';
+import { minWidth } from '@material-ui/system';
 
-const tableColumnsData = [
-  { title: '#ID', align: 'center', styles:{width: '10px'} },
-  { title: 'Usuario' },
-  { title: 'Phone Number' },
-  { title: 'NickName' },
-  { title: 'link' },
-  { title: 'Acciones', align: 'center', styles:{background:'#00B0F0'}},
-  { title: 'Activo', align: 'center', styles:{ width: '30px'} }
-];
+
+
+const FetchFilters = ({getUsers,postUser}) =>{
+  
+  return (<Fragment>
+      <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
+      <Divider />
+      <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
+      <Divider />
+      <Button variant="contained" color="inherit" onClick={postUser} fullWidth>POST USER</Button>
+  </Fragment>)
+}
 
 const FetchSamples = () => {
   const [openLoading, setOpenLoading] = useState(false);
@@ -51,8 +57,15 @@ const FetchSamples = () => {
   };
 
   const postUser = () => {
-    fetchData.post('users', { id: 700, name: 'roberto' }, data => {
-      console.log(data);
+    //const query = {data:[{ok:1},{ok:2},4],wow:{child1:0,child2:[[1,2,3,4],['5','6'],[{swow:new Date()},{swow:new Date()}]]}}
+    const query = {data:[[0,1,2,3],[{id:1},2,{id:3}],{obj1:10,obj2:{sob:11}}],year:0,father:{child1:{child2:{child3:'son'}}}}
+    fetchData.post('users', query, data => {
+      /*
+      console.log('------------------FORMDATA->')
+      for(var pair of data.entries()) {
+        console.log(pair[0]+ ', '+ pair[1]); 
+      }
+      */
     });
   };
 
@@ -67,6 +80,22 @@ const FetchSamples = () => {
   const onActionAddCircleButton = data => {
     console.log(data);
   };
+
+  const setTableOrder = order =>{
+    console.log('order',order)
+  }
+
+  const tableColumnsData = [
+    { title: '#ID', align: 'center', styles:{width: '15px'}, order:{data:"id"} },
+    { title: 'Usuario', order:{data:"name"} },
+    { title: 'Phone Number' },
+    { title: 'NickName' },
+    { title: 'Date Time', order:{data:"date_time",active:'DESC'} },
+    { title: 'link' },
+    { title: 'Description' },
+    { title: 'Acciones', align: 'center', styles:{background:'#00B0F0'}},
+    { title: 'Activo', align: 'center', styles:{ width: '30px'} }
+  ];
 
   const createTableData = user => {
     const { id, name, email, phone, username } = user;
@@ -86,8 +115,16 @@ const FetchSamples = () => {
         props: { icon: Phone, text: username, color: 'green' }
       },
       {
+        component: DateData,
+        props: { date:'2019-10-14 12:34:56', format_date:'MM/dd/yyyy MM:ss z'}
+      },
+      {
         component: UrlButton,
         props: { icon: Phone, text: 'click to link', color: 'green', url:'http://www.google.com'}
+      },
+      {
+        component: LongText,
+        props:{ text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",maxCharacters:15}
       },
       {
         component: ActionButtons,
@@ -126,19 +163,16 @@ const FetchSamples = () => {
       onModuleOptions={showOptionsDrawer}
     >
       
-      <TableList columns={tableColumnsData} rows={usersData} />
+      <TableList columns={tableColumnsData} rows={usersData} showTopScroll={true} onTableOrderChange={setTableOrder} />
       <OptionsDrawer
         {...optionsDrawer}
         title="Filters"
         onClose={showOptionsDrawer}
         styles={{ top: '58px' }}
-      >
-        <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
-        <Divider />
-        <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
-        <Divider />
-        <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
-      </OptionsDrawer>
+        getUsers={getUsers}
+        postUser={postUser}
+        component={FetchFilters}
+      / >
       <LoadingDialog open={openLoading} title="Loading Users..." />
       <MsgDialog
         open={openMsg}

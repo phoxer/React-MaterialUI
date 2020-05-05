@@ -4,7 +4,7 @@ import Switch from '@material-ui/core/Switch';
 import useStyle from './styles';
 
 const StatusSwitch = ({ state, data, onChange }) => {
-  const [switchState, setState] = useState(state);
+  const [switchState, setState] = useState(Boolean(state));
   const classes = useStyle();
 
   const onStateChange = () => {

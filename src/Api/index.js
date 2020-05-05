@@ -1,31 +1,36 @@
+/** Api Fetch V 1.2.3 by Phoxer.com */
+
 const apiBaseUrl = 'https://jsonplaceholder.typicode.com/';
 
 const buildDataToSend = data => {
   const formData = new FormData();
-  let formKey;
+
   const createFormData = (obj, namespace = '') => {
-    if (typeof obj === 'object') {
-      for (let propertyName in obj) {
-        if (!obj.hasOwnProperty(propertyName) || !obj[propertyName]) continue;
-        formKey = namespace ? `${namespace}[${propertyName}]` : propertyName;
-        if (obj[propertyName] instanceof Date) {
-          formData.append(formKey, obj[propertyName].toISOString());
-        } else if (obj[propertyName] instanceof Array) {
-          // eslint-disable-next-line no-loop-func
-          obj[propertyName].forEach((element, index) =>
-            createFormData(element, `${formKey}[${index}]`),
-          );
-        } else if (
-          typeof obj[propertyName] === 'object' &&
-          !(obj[propertyName] instanceof File)
-        ) {
-          createFormData(obj[propertyName], formKey);
-        } else {
-          formData.append(formKey, obj[propertyName].toString());
-        }
+    let formKey;
+    if(typeof obj !== 'object'){
+      formData.append(namespace, obj);
+    }else{
+        for (let prop in obj) {
+          formKey = namespace ? `${namespace}[${prop}]` : prop;
+          if(typeof obj[prop] === 'object'){
+            if (obj[prop] instanceof Array) {
+              // eslint-disable-next-line no-loop-func
+              obj[prop].forEach((element, index) =>{
+                createFormData(element, `${formKey}[${index}]`,true)
+              });
+            }else if (obj[prop] instanceof Date) {
+              formData.append(formKey, obj[prop].toISOString());
+            }else if (obj[prop] instanceof File) {
+              formData.append(formKey, obj[prop]);
+            }else{
+              createFormData(obj[prop],formKey);
+            }
+          }else{
+            if(obj[prop]!==undefined){
+              formData.append(formKey, obj[prop]);
+            } 
+          }
       }
-    } else {
-      formData.append(namespace, obj.toString());
     }
   };
   createFormData(data);
@@ -51,7 +56,7 @@ const fetchData = {
       node,
       {
         method: 'GET',
-        credentials: 'same-origin',
+        credentials: 'same-origin'
       },
       callBack,
     );
@@ -61,8 +66,8 @@ const fetchData = {
       node,
       {
         method: 'POST',
-        body: buildDataToSend(data),
         credentials: 'same-origin',
+        body: buildDataToSend(data),
       },
       callBack,
     );

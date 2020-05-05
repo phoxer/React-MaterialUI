@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { Fragment,useState, useContext } from 'react';
 import { StoreContext } from '../../GlobalData';
 import ModuleWrap from '../../Components/ModuleWrap';
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,19 @@ import {
 } from '../../Components/Dialogs';
 import { DialogBottom } from '../../Components/Dialogs/Utils';
 import useLanguage from './lang';
+
+const TransferListDialog = (props) =>{
+  const {onDialogAction} = props;
+  console.log('TransferListDialog',props)
+  return (<Fragment>
+    <TransferList />
+    <DialogBottom>
+      <Button onClick={onDialogAction} variant="contained" color="primary" fullWidth>
+        ACTION
+      </Button>
+    </DialogBottom>
+  </Fragment>)
+}
 
 const DialogSamples = () => {
   const { state } = useContext(StoreContext);
@@ -68,6 +81,10 @@ const DialogSamples = () => {
     console.log(response);
   };
 
+  const onDialogAction = ( ) =>{
+    console.log("IT FUCKING WORK!!!")
+  }
+
   return (
     <ModuleWrap title={langText.moduleTitle}>
       <Box align="center" p={1}>
@@ -78,14 +95,7 @@ const DialogSamples = () => {
       </Box>
       <LoadingDialog {...loadingDialog} />
       <MsgDialog {...msgDialog} onClose={showMsgDialog} scroll="body" />
-      <ContentDialog {...contentDialog} onClose={showContentDialog}>
-        <TransferList />
-        <DialogBottom>
-          <Button variant="contained" color="primary" fullWidth>
-            ACTION
-          </Button>
-        </DialogBottom>
-      </ContentDialog>
+      <ContentDialog {...contentDialog} onClose={showContentDialog} onDialogAction={onDialogAction} component={TransferListDialog} />
       <ActionDialog
         {...actionDialog}
         actionResponse={handleActionResponse}

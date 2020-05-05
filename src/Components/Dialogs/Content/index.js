@@ -4,15 +4,9 @@ import DialogHeader from '../Utils/Header';
 import DialogContent from '@material-ui/core/DialogContent';
 import useStyles from './styles';
 
-const ContentDialog = ({
-  children,
-  open,
-  onClose,
-  title,
-  maxWidth,
-  scroll
-}) => {
-  const classes = useStyles();
+const ContentDialog = props => {
+  const {open,onClose,title,maxWidth,scroll,component} = props
+  const dialogClasses = useStyles();
 
   return (
     <Dialog
@@ -20,11 +14,13 @@ const ContentDialog = ({
       aria-labelledby={title}
       open={open}
       maxWidth={maxWidth ? maxWidth : 'xl'}
-      classes={{ paper: classes.paper }}
+      classes={{ paper: dialogClasses.paper }}
       scroll={scroll ? scroll : 'paper'}
     >
-      <DialogHeader title={title} onClose={onClose} classes={classes} />
-      <DialogContent className={classes.content}>{children}</DialogContent>
+      <DialogHeader title={title} onClose={onClose} />
+      {open && <DialogContent className={dialogClasses.content}>
+        {component && React.createElement(component,{...props,component:null,maxWidth:null})}
+      </DialogContent>}
     </Dialog>
   );
 };

@@ -3,4 +3,6 @@ import StatusSwitch from './StatusSwitch';
 import ActionButtons from './ActionButtons';
 import IconText from './IconText';
 import UrlButton from './UrlButton';
-export { UserData, StatusSwitch, ActionButtons, IconText,UrlButton };
+import DateData from './DateData';
+import LongText from './LongText';
+export { UserData, StatusSwitch, ActionButtons, IconText,UrlButton,DateData,LongText };

@@ -13,13 +13,9 @@ const DialogHeader = ({ title, onClose }) => {
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
-        <IconButton
-          aria-label="close"
-          classes={{ root: classes.closeButton }}
-          onClick={() => onClose({ open: false })}
-        >
-          <CloseIcon />
-        </IconButton>
+        {onClose && <IconButton aria-label="close" classes={{ root: classes.closeButton }} onClick={() => onClose({ open: false })}>
+            <CloseIcon />
+          </IconButton>}
       </div>
       <Divider />
     </Fragment>

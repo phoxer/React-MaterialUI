@@ -3,19 +3,20 @@ import Drawer from '@material-ui/core/Drawer';
 import useStyles from './styles';
 import { DialogHeader } from '../Dialogs/Utils';
 
-const OptionsDrawer = ({ children, title, open, onClose, styles, anchor }) => {
-  const classes = useStyles(styles);
+const OptionsDrawer = props => {
+  const { component, title, open, onClose, styles, anchor } = props;
+  const odClasses = useStyles(styles);
   return (
     <Drawer
       anchor={anchor ? anchor : 'right'}
       open={open}
       onClose={() => onClose({ open: false })}
-      classes={{ paper: classes.draw_paper }}
+      classes={{ paper: odClasses.draw_paper }}
     >
       <DialogHeader title={title} onClose={onClose} />
-      <div className='content'>
-        {children}
-      </div>
+      {open && <div className={odClasses.content}>
+        {component && React.createElement(component,{...props,component:null,styles:null})}
+      </div>}
     </Drawer>
   );
 };
