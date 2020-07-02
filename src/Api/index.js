@@ -1,77 +1,77 @@
-/** Api Fetch V 1.2.3 by Phoxer.com */
+/** Api Fetch V 2.0.1 by Phoxer.com */
 
-const apiBaseUrl = 'https://jsonplaceholder.typicode.com/';
+const apiUrl = 'https://jsonplaceholder.typicode.com/';
 
 const buildDataToSend = data => {
-  const formData = new FormData();
-
-  const createFormData = (obj, namespace = '') => {
-    let formKey;
-    if(typeof obj !== 'object'){
-      formData.append(namespace, obj);
-    }else{
-        for (let prop in obj) {
-          formKey = namespace ? `${namespace}[${prop}]` : prop;
-          if(typeof obj[prop] === 'object'){
-            if (obj[prop] instanceof Array) {
-              // eslint-disable-next-line no-loop-func
-              obj[prop].forEach((element, index) =>{
-                createFormData(element, `${formKey}[${index}]`,true)
-              });
-            }else if (obj[prop] instanceof Date) {
-              formData.append(formKey, obj[prop].toISOString());
-            }else if (obj[prop] instanceof File) {
-              formData.append(formKey, obj[prop]);
+    const formData = new FormData();
+    const createFormData = (obj, namespace = '') => {
+      let formKey;
+      if(typeof obj !== 'object'){
+        formData.append(namespace, obj);
+      }else{
+          for (let prop in obj) {
+            formKey = namespace ? `${namespace}[${prop}]` : prop;
+            if(typeof obj[prop] === 'object'){
+              if (obj[prop] instanceof Array) {
+                // eslint-disable-next-line no-loop-func
+                obj[prop].forEach((element, index) =>{
+                  createFormData(element, `${formKey}[${index}]`,true)
+                });
+              }else if (obj[prop] instanceof Date) {
+                formData.append(formKey, obj[prop].toISOString());
+              }else if (obj[prop] instanceof File) {
+                formData.append(formKey, obj[prop]);
+              }else{
+                createFormData(obj[prop],formKey);
+              }
             }else{
-              createFormData(obj[prop],formKey);
+              if(obj[prop]!==undefined){
+                formData.append(formKey, obj[prop]);
+              } 
             }
-          }else{
-            if(obj[prop]!==undefined){
-              formData.append(formKey, obj[prop]);
-            } 
-          }
+        }
       }
-    }
+    };
+    createFormData(data);
+    return formData;
   };
-  createFormData(data);
-  return formData;
-};
 
-const makeServerCall = (node, config, callBack) => {
-  fetch(`${apiBaseUrl}${node}`, config)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      callBack(data);
-    })
-    .catch(function(error) {
-      callBack({ error: error.message });
+const serverCall = async (url, config) => {
+    return await fetch(url, config).then((rsp) => {
+        return rsp.json();
+    }).then((data) => {
+        return data;
+    }).catch((error) => {
+        return { error: error.message };
     });
 };
 
 const fetchData = {
-  get: (node, callBack) => {
-    makeServerCall(
-      node,
-      {
+    get: async (endPoint, data = null) => {
+      const url = `${apiUrl}${endPoint}`;
+      const urlParams = data ? `${url}?${new URLSearchParams(data).toString()}` : url;
+      return await serverCall(urlParams, {
         method: 'GET',
         credentials: 'same-origin'
-      },
-      callBack,
-    );
-  },
-  post: (node, data, callBack) => {
-    makeServerCall(
-      node,
-      {
-        method: 'POST',
-        credentials: 'same-origin',
-        body: buildDataToSend(data),
-      },
-      callBack,
-    );
-  },
-};
+      });
+    },
+    post: async (endPoint, data) => {
+        return await serverCall(`${apiUrl}${endPoint}`, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          redirect: 'follow',
+          body: buildDataToSend(data)
+        });
+    },
+    json: async (url) =>{
+      return await serverCall(url, {
+        method: 'GET',
+        credentials: 'same-origin'
+      });
+    }
+}
 
 export default fetchData;

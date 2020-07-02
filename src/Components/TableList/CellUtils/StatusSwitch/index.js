@@ -9,6 +9,7 @@ const StatusSwitch = ({ state, data, onChange }) => {
 
   const onStateChange = () => {
     setState(!switchState);
+    console.log('onChange',onChange)
     onChange({ state: !switchState, ...data });
   };
 

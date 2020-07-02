@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-
 import { StoreContext } from '../../GlobalData';
 import { themeActions } from '../../GlobalData/theme';
 import { langsActions, langs } from '../../GlobalData/langs';

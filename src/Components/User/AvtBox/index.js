@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import useStyle from './styles';
@@ -16,11 +16,10 @@ const UserPicture = ({ classes, name, avatar }) => {
 };
 
 const AvtBox = ({ name, avatar, email, text }) => {
-  const avtRef = useRef();
   const classes = useStyle();
 
   return (
-    <div ref={avtRef} className={classes.container}>
+    <div className={classes.container}>
       <UserPicture name={name} avatar={avatar} classes={classes} />
       <div className={classes.info}>
         <Typography variant="h3">{name}</Typography>

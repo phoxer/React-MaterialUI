@@ -1,4 +1,4 @@
-import React, { Fragment,useState, useEffect } from 'react';
+import React, { Fragment,useState } from 'react';
 import fetchData from '../../Api';
 import ModuleWrap from '../../Components/ModuleWrap';
 import TableList from '../../Components/TableList';
@@ -16,58 +16,75 @@ import { LoadingDialog, MsgDialog } from '../../Components/Dialogs';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { Group, AddCircle, Phone } from '@material-ui/icons';
-import { minWidth } from '@material-ui/system';
 
-
-
-const FetchFilters = ({getUsers,postUser}) =>{
+const FetchFilters = ({getUsers,getUser,getJson,postUser}) =>{
   
   return (<Fragment>
       <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
       <Divider />
-      <Button variant="contained" color="inherit" onClick={getUsers} fullWidth>GET USERS</Button>
+      <Button variant="contained" color="inherit" onClick={getUser} fullWidth>GET USER</Button>
       <Divider />
       <Button variant="contained" color="inherit" onClick={postUser} fullWidth>POST USER</Button>
+      <Divider />
+      <Button variant="contained" color="inherit" onClick={getJson} fullWidth>LOAD JSON</Button>
   </Fragment>)
 }
 
+const showMessageInit = {open: false, title:'', message: ''};
+
 const FetchSamples = () => {
   const [openLoading, setOpenLoading] = useState(false);
-  const [openMsg, setOpenMsg] = useState(false);
+  const [msgDialog, setMsgDialog] = useState(showMessageInit);
   const [optionsDrawer,showOptionsDrawer]= useState({open:false})
   const [usersData, setUsersData] = useState([]);
 
   const getUsers = () => {
     setOpenLoading(true);
-    fetchData.get('users/', data => {
-      console.log('data', data);
-
-      const users = data.map(user => {
-        return createTableData(user);
-      });
+    fetchData.get('users').then(response=>{
+      const { error } = response;
+      if(error){
+        setMsgDialog({open:true,title:"Error on Fetch",message: error, onClose: ()=>{
+          setMsgDialog(showMessageInit);
+        }})
+      }else{
+        const users = response.map(user => {
+          return createTableData(user);
+        });
+        setUsersData(users);
+      }
       setOpenLoading(false);
-      setUsersData(users);
-    });
+    })
   };
 
   const getUser = () => {
+    fetchData.get('users/2').then(response=>{
+      console.log('FetchData USER',response)
+    })
+    /*
     fetchData.get('users/2', data => {
       console.log(data);
     });
+    */
   };
 
   const postUser = () => {
+    /*
     //const query = {data:[{ok:1},{ok:2},4],wow:{child1:0,child2:[[1,2,3,4],['5','6'],[{swow:new Date()},{swow:new Date()}]]}}
     const query = {data:[[0,1,2,3],[{id:1},2,{id:3}],{obj1:10,obj2:{sob:11}}],year:0,father:{child1:{child2:{child3:'son'}}}}
     fetchData.post('users', query, data => {
-      /*
       console.log('------------------FORMDATA->')
       for(var pair of data.entries()) {
         console.log(pair[0]+ ', '+ pair[1]); 
       }
-      */
     });
+    */
   };
+
+  const getJson = () =>{
+    fetchData.json('/jsons/sample.json').then(response=>{
+      console.log('JSON DATA',response)
+    })
+  }
 
   const onUserStateChange = state => {
     console.log(state);
@@ -147,7 +164,7 @@ const FetchSamples = () => {
       },
       {
         component: StatusSwitch,
-        comp_props: {
+        props: {
           state: true,
           onChange: onUserStateChange,
           data: { id: id }
@@ -170,16 +187,13 @@ const FetchSamples = () => {
         onClose={showOptionsDrawer}
         styles={{ top: '58px' }}
         getUsers={getUsers}
+        getUser={getUser}
+        getJson={getJson}
         postUser={postUser}
         component={FetchFilters}
       / >
       <LoadingDialog open={openLoading} title="Loading Users..." />
-      <MsgDialog
-        open={openMsg}
-        setOpen={setOpenMsg}
-        title="Error Msg Dialog..."
-        message="Este sería un mensaje de error!"
-      />
+      <MsgDialog {...msgDialog} />
     </ModuleWrap>
   );
 };

@@ -4,7 +4,7 @@ import Popover from '@material-ui/core/Popover';
 import useStyles from './styles';
 
 const LongText = ({ text,maxCharacters=5 }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const classes = useStyles();
 
