@@ -1,19 +1,43 @@
 import React from 'react';
+import useFormData from 'Hooks/useFormData';
+import ModuleWrap from 'Components/ModuleWrap';
+import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+
+const FormSample = () => {
+
+  const formData = useFormData([
+    {id:"name",label:"Full Name",value:"",errorMessage:"Put the name!"},
+    {id:"email",label:"E-Mail",value:"",errorMessage:"Write your email!"}
+  ]);
+
+  console.log('formData',formData)
+
+  return (<ModuleWrap title="Form Samplea">
+    <Box display="flex" flexDirection="column">
+      <TextField {...formData.name} />
+      <TextField {...formData.email} variant="filled" />
+      <TextField id="standard-basic" label="Standard" />
+      <TextField select id="standard-basic" label="Standard" >
+        <MenuItem value={"Option 1"}>Option 1</MenuItem>
+        <MenuItem value={"Option 2"}>Option 2</MenuItem>
+      </TextField>
+      <Button variant="contained">SEND DATA</Button>
+    </Box>
+  </ModuleWrap>)
+
+}
+
+export default FormSample;
+/*
 import ModuleWrap from '../../Components/ModuleWrap';
 import DataSelector from '../../Components/Forms/DataSelector';
 import NumberFormat from 'react-number-format';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 
-/*
-const persons = [
-  {value:{id:1,name:"Roberto1",surname:"Baglieri1"},text:"Roberto1"},
-  {value:{id:2,name:"Roberto2",surname:"Baglieri2"},text:"Roberto2"},
-  {value:{id:3,name:"Roberto3",surname:"Baglieri3"},text:"Roberto3"},
-  {value:{id:4,name:"Roberto4",surname:"Baglieri4"},text:"Roberto4"},
-
-]
-*/
 const persons = [
   {id:1,name:"Roberto1",surname:"Baglieri1"},
   {id:2,name:"Roberto2",surname:"Baglieri2"},
@@ -69,3 +93,4 @@ const FormSample = () => {
 };
 
 export default FormSample;
+*/
