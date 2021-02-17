@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import { ExpandLess,ExpandMore,Person } from '@material-ui/icons';
 import useStyle from './styles';
 import {isUndefined,isArray,isBoolean} from 'lodash'; 
@@ -50,7 +49,7 @@ export const NavList = ({title,onItemsClick,list}) =>{
 }
 
 
-export const NavMenu = ({ open, onClose, onItemsClick, styles, data , children }) => {
+const NavMenu = ({ open, onClose, onItemsClick, styles, data , children }) => {
   const classes = useStyle(styles);
   return (
     <Drawer open={open} onClose={() => onClose(false)} classes={{paper:classes.menu_paper}}>
@@ -62,3 +61,4 @@ export const NavMenu = ({ open, onClose, onItemsClick, styles, data , children }
   );
 };
 
+export default NavMenu;

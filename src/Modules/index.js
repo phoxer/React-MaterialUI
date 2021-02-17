@@ -1,25 +1,29 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FetchSamples from './FetchSamples';
-import DialogSamples from './DialogSamples';
-import FormSample from './FormSamples';
 import { Settings, People } from '@material-ui/icons';
 import TopBar from './TopBar';
-import { NavMenu, NavList } from '../Components/NavMenu';
+import NavMenu from '../Components/NavMenu';
 import AvtBox from '../Components/User/AvtBox';
+import { LoadingDialog } from '../Components/Dialogs';
 import { isUndefined } from 'lodash';
 
+const FetchSamples = lazy(() => import('./FetchSamples'));
+const DialogSamples = lazy(() => import('./DialogSamples'));
+const FormSample = lazy(() => import('./FormSamples'));
+
 const modules = [
-  { title: 'Fetch Samples', component: FetchSamples, path: '/fetch-samples/' },
+  { title: 'Fetch Samples', component: FetchSamples, path: ['/','/fetch-samples/'], exact: true },
   {
     title: 'Dialogs Samples',
     component: DialogSamples,
-    path: '/dialogs-samples/'
+    path: '/dialogs-samples/',
+    exact: true
   },
   {
-    title: 'Form Samples',
+    title: 'React Hook Sample',
     component: FormSample,
-    path: '/form-sample/'
+    path: '/form-sample/',
+    exact: true
   }
 ];
 
@@ -61,12 +65,13 @@ export const NavMainMenu = [
 const ModulesRouter = () => {
   return (
     <Switch>
-      {modules.map((module, index) => {
-        const { path, component } = module;
-        return (
-          <Route key={`mod${index}`} exact path={path} component={component} />
-        );
-      })}
+      <Suspense fallback={<LoadingDialog open={true} />}>
+        {modules.map((module, index) => {
+          return (
+            <Route key={`mod${index}`} {...module} />
+          );
+        })}
+      </Suspense>
     </Switch>
   );
 };

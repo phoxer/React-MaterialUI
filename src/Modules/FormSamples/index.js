@@ -1,96 +1,97 @@
 import React from 'react';
-import useFormData from 'Hooks/useFormData';
+import { useForm, Controller } from "react-hook-form";
+import { showFieldError } from 'Components/Forms/Utils';
 import ModuleWrap from 'Components/ModuleWrap';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
+import useStyles from './styles';
+
+const currencies = [
+  {
+    value: 'USD',
+    label: '$',
+  },
+  {
+    value: 'EUR',
+    label: '€',
+  },
+  {
+    value: 'BTC',
+    label: '฿',
+  },
+  {
+    value: 'JPY',
+    label: '¥',
+  },
+];
 
 const FormSample = () => {
+  const classes = useStyles();
+  const { control, errors, handleSubmit } = useForm();
+  
+  const onSubmit = (data) => {
+    console.log("FORM SUBMITED", data);
+  };
 
-  const formData = useFormData([
-    {id:"name",label:"Full Name",value:"",errorMessage:"Put the name!"},
-    {id:"email",label:"E-Mail",value:"",errorMessage:"Write your email!"}
-  ]);
+  return (<ModuleWrap title="React Hook Sample">
+      <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 
-  console.log('formData',formData)
-
-  return (<ModuleWrap title="Form Samplea">
-    <Box display="flex" flexDirection="column">
-      <TextField {...formData.name} />
-      <TextField {...formData.email} variant="filled" />
-      <TextField id="standard-basic" label="Standard" />
-      <TextField select id="standard-basic" label="Standard" >
-        <MenuItem value={"Option 1"}>Option 1</MenuItem>
-        <MenuItem value={"Option 2"}>Option 2</MenuItem>
-      </TextField>
-      <Button variant="contained">SEND DATA</Button>
-    </Box>
+        <Controller as={TextField} className={classes.text_field} name="name" rules={{ required: "Please type your name." }} label="Name:" {...showFieldError(errors.name)}  control={control} defaultValue="" variant="outlined" size="small" />
+        <Controller as={TextField} className={classes.text_field} name="email" label="Email:" {...showFieldError(errors.email)} rules={{ required: "Please type your name." }} control={control} defaultValue="" variant="outlined" size="small" />
+        <Controller name="currency" control={control} defaultValue="EUR" render={({ onChange, value }) =>{
+          return (<TextField select label="Currency:" value={value} onChange={(e) => onChange(e.target.value)} variant="outlined" size="small" className={classes.text_field} >
+              {currencies.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          );
+        }} />
+        <Controller
+          control={control}
+          name="terms"
+          rules={{ required: "You must accept terms and conditions." }}
+          defaultValue={false}
+          render={({ onChange, value }) => {
+            return (<FormControlLabel
+              control={<Checkbox checked={value} onChange={(e) => onChange(e.target.checked)} />}
+              label="Acept Terms and Conditions" size="small" variant="outlined"
+            />)}
+          }
+        />
+        {errors.terms && <FormHelperText className={classes.error_message}>{errors.terms.message}</FormHelperText>}
+        <Controller
+          control={control}
+          name="radios"
+          rules={{ required: "You must select radios." }}
+          defaultValue=""
+          render={({ onChange, value }) => {
+            return (<FormControl component="fieldset" size="small" variant="outlined">
+              <FormLabel>Acept Terms and Conditions</FormLabel>
+              <RadioGroup name="radios" value={value} onChange={(e) =>onChange(e.target.value)}>
+                  <FormControlLabel value="female" control={<Radio />} label="Female" />
+                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                  <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" />
+              </RadioGroup>
+            </FormControl>)}
+          }
+        />
+        {errors.radios && <FormHelperText className={classes.error_message}>{errors.radios.message}</FormHelperText>}
+        <Controller as={TextField} multiline={true} rows={4} className={classes.text_field} name="comments" label="Comments:" control={control} defaultValue="" variant="outlined" size="small" />
+        <Button type="submit" variant="contained">SEND DATA</Button>
+      </form>
   </ModuleWrap>)
 
 }
 
 export default FormSample;
-/*
-import ModuleWrap from '../../Components/ModuleWrap';
-import DataSelector from '../../Components/Forms/DataSelector';
-import NumberFormat from 'react-number-format';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-
-const persons = [
-  {id:1,name:"Roberto1",surname:"Baglieri1"},
-  {id:2,name:"Roberto2",surname:"Baglieri2"},
-  {id:3,name:"Roberto3",surname:"Baglieri3"},
-  {id:4,name:"Roberto4",surname:"Baglieri4"},
-]
-
-const platforms = ["facebook","twitter","Instagram"];
-
-const FormSample = () => {
-  const onValueChange = values => {
-    console.log(values);
-    //console.log({ [target.name]: target.value });
-  };
-
-  return (
-    <ModuleWrap title="Form Samplea">
-      <Grid container spacing={1}>
-        <Grid item xs={12} sm={4}>
-          <NumberFormat
-            fullWidth
-            customInput={TextField}
-            label="Telefono:"
-            name="telefono"
-            format="(##) ####-####"
-            mask="_"
-            onValueChange={values => onValueChange(values)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <NumberFormat
-            fullWidth
-            customInput={TextField}
-            label="Monto:"
-            name="dinero"
-            thousandSeparator={true}
-            prefix={'$'}
-            onValueChange={values => onValueChange(values)}
-            margin="normal"
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-            <DataSelector name="persons" label="Persons" initialValue={{id:2}} keyToShow="name" data={persons} onChange={onValueChange} variant="standard" />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-            <DataSelector name="platforms" label="Platforms" initialValue="Instagram" data={platforms} onChange={onValueChange} variant="standard" />
-        </Grid>
-      </Grid>
-
-      
-    </ModuleWrap>
-  );
-};
-
-export default FormSample;
-*/
